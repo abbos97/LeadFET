@@ -46,12 +46,12 @@ export class App {
       const rasterViewer = this.createDocumentViewer(document.getElementById('rasterOutputViewer'), DetailPanelType.output);
       this.rasterViewer = rasterViewer;
       
-      this.loadFromPost(this.splitViews[0], doc1, token).then(() => {
-         this.loadFromPost(this.splitViews[1], doc2, token);
-      })
+      // this.loadFromPost(this.splitViews[0], doc1, token).then(() => {
+      //    this.loadFromPost(this.splitViews[1], doc2, token);
+      // })
       
-      // this.loadFromUri(this.splitViews[0], this.viewer1Default);
-      // this.loadFromUri(this.splitViews[1], this.viewer2Default);
+      this.loadFromUri(this.splitViews[0], this.viewer1Default);
+      this.loadFromUri(this.splitViews[1], this.viewer2Default);
 
       const imgViewerMap = this.splitViews.map(x => x.view.imageViewer);
       imgViewerMap.push(rasterViewer.view.imageViewer);
