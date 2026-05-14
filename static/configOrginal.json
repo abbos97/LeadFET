@@ -1,0 +1,21 @@
+{
+    "serviceHost": "http://localhost:30000",
+    "servicePath": "",
+    "serviceApiPath": "api",
+    "startupMode": 1,
+    "setEvalLicense": true,
+    "defaultColors": {
+        "originalBackground": "#ffffff",
+        "originalForeground": "#f00000",
+        "modifiedBackground": "#ffffff",
+        "modifiedForeground": "#ff00ff",
+        "outputExternal": "#0000ff",
+        "outputBackground": "#ffffff",
+        "outputMatch": "#808080",
+        "outputAddition": "#008000",
+        "outputDeletion": "#ff0000",
+        "outputChange": "#ffff00"
+    },
+    "collapseSidePanels": false,
+    "autoGetColoredImages": true
+}

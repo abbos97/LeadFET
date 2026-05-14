@@ -1,0 +1,152 @@
+.bottom-border {
+  border-bottom: 4px solid $borderColor;
+}
+
+.top-border {
+  border-top: 4px solid $borderColor;
+}
+
+.left-border {
+  border-left: 4px solid $borderColor;
+}
+
+.right-border {
+  border-right: 4px solid $borderColor;
+}
+
+.small-bordered {
+  border: 2px solid $borderColor;
+}
+.bordered {
+  border: 4px solid $borderColor;
+}
+
+.selected-border {
+  border-color: $selectedBorderColor !important;
+}
+
+.divider {
+  border-bottom: 4px solid $borderColor;
+  width: 100%;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.hcenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hflex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.vflex {
+  display: flex;
+  flex-direction: column;
+}
+
+.vcenter {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.shove-right {
+  margin-left: 5px;
+}
+
+.shove-left {
+  margin-right: 5px;
+}
+
+.shove-down {
+  margin-top: 5px;
+}
+
+.shove-up {
+  margin-bottom: 5px;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.hidden-input {
+  max-width: 4ch;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  text-align: center;
+  border: 1px solid $borderColor;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
+  line-height: 1.5;
+}
+
+.keyboard-shortcut {
+  color: #000066;
+  font-weight: bolder;
+}
+
+.pad {
+  padding: 5px;
+}
+
+.settings-block {
+  overflow: hidden;
+  transition: 1.5s all;
+  max-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.hide-tab {
+  margin: auto;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 20px solid $borderColor;
+}
+
+.show-tab {
+  margin: auto;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 20px solid $borderColor;
+}
+
+.collapse-holder {
+  width: 48px !important;
+  border-color: $borderColor;
+  background-color: #E8E8E8;
+}
+
+.collapse-holder:hover{
+  background-color: #C8C8C8;
+}
+
+.collapsible {
+  width: 100%;
+  transition: .7s all;
+}
+
+.bolded-h4{
+  font-weight: 600;
+  font-size: 20px;
+}
+

@@ -1,0 +1,118 @@
+.app-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.app-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-bar {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  margin: 8px;
+  background-color: $panelColor;
+  transition: .7s all;
+  overflow: hidden;
+  border-color: $borderColor;
+}
+
+.toolbar {
+  height: 5%;
+  background-color: $panelColor;
+}
+
+.diff-holder {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.view-holder {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin-bottom: 4px;
+  position: relative;
+  width: 100%;
+}
+
+.split-panel {
+  width: 50%;
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-color: $borderColor;
+}
+
+.raster-panel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: -1;
+  opacity: 0;
+  transition: .5s all;
+  background-color: $panelColor;
+}
+
+.viewer {
+  height: 100%;
+}
+
+.doc-info-panel {
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  border: 4px solid;
+  border-color: inherit;
+  background-color: $panelColor;
+  transition: .5s all;
+  max-height: 5%;
+  overflow: hidden;
+  align-items: center;
+}
+
+.leftPanel {
+  border-right: 4px solid $borderColor;
+  margin-right: 0;
+}
+.rightPanel {
+  border-left: 4px solid $borderColor;
+  margin-left: 0;
+}
+
+.zoom-holder {
+  width: 90px;
+  height: 26px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: $panelColor;
+  color: $fontColor;
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-weight: bolder;
+  border-radius: 2px;
+  display: inline-block;
+  border: 2px solid $borderColor;
+}
+
+.zoom-holder select {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.text-settings {
+  transition: .5s all linear 0s;
+  max-height:0;
+  overflow:hidden;
+  height: 40px;
+}

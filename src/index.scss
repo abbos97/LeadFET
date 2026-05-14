@@ -1,0 +1,69 @@
+/*
+   Root SASS files.
+*/
+
+// Import theme variables.
+// To reskin the demo, simply modify the theme.scss file.
+@import "./_theme.scss";
+
+// Alignment and utility classes
+@import "./styles/utils/_formatting.scss";
+
+// Styling for the Document Viewer
+@import "./styles/lt/_docviewer.scss";
+
+// Generic app layout styles
+@import "./_app.scss";
+
+// Icons
+@import "./styles/icons/icons.scss";
+
+// Component imports
+@import "./components/TextCompare/_textpanel.scss";
+@import "./components/Modals/_compactmodal.scss";
+@import "./styles/components/_navigator.scss";
+@import "./styles/components/_slider.scss";
+@import "./components/ColorPicker/colorpicker.scss";
+
+// Global page styles
+body {
+  margin: 0;
+  color: $fontColor;
+  overflow: hidden;
+  background-color: $backgroundColor;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+button {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  line-height: 1.5;
+  color: $fontColor;
+  border: 1px transparent;
+  border-radius: .25rem;
+  font-family: monospace;
+}
+
+button:hover {
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+
+// Styling fixes for IE
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .h3, h3{
+    font-size: 20px;
+  }
+  input[type=range]{
+    height: 60px;
+  }
+}

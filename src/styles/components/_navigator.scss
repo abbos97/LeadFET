@@ -1,0 +1,25 @@
+.navigator-h {
+  display: flex;
+  flex-direction: row;
+  height: 33.33%;
+}
+
+.navigator-v {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+}
+
+.navigator {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  width: 100px;
+}
+
+.navigator-button {
+  margin: auto;
+  width: 30px;
+  height: 30px;
+  color: $fontColor;
+}

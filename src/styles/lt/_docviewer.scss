@@ -1,0 +1,23 @@
+/* Styles for Elements Mode. */
+.lt-item,
+.lt-image-border {
+  /* Box Shadow (view, item, image border) */
+  box-shadow: #333 2px 2px 5px 1px;
+}
+.lt-view,
+.lt-thumb-item {
+  /* View */
+  margin: 5px;
+  padding: 5px;
+  border-color: $backgroundColor;
+}
+.lt-item {
+  /* Item */
+  background-color: $panelColor;
+  padding: 10px;
+}
+.lt-image-border {
+  /* Image Border */
+  border: 3px solid #444;
+  background-color: white;
+}

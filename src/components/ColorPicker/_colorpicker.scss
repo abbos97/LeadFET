@@ -1,0 +1,30 @@
+
+/**
+   Styles for browsers that support input=color
+**/
+.ColorContainer {
+   width: 35px;
+   height: 25px;
+   border: 1px outset $borderColor;
+   display: flex;
+   cursor: pointer;
+}
+
+.ColorSwatch {
+   margin-left: 5px;
+   margin-top: auto;
+   margin-bottom: auto;
+   width: 15px;
+   height: 15px;
+}
+
+.Arrow {
+   height: 0px;
+   width: 0px;
+   border: 3px solid transparent;
+   border-top-color: $borderColor;
+   margin-left: auto;
+   margin-top: auto;
+   margin-right: 5px;
+   margin-bottom: auto;
+}

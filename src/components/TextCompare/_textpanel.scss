@@ -1,0 +1,42 @@
+.result-row {
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  padding: 5px;
+  border-bottom: 1px solid $rowSeperator;
+  font-weight: bolder;
+  font-family: monospace;
+  transition: all 0.4s;
+  transform: translateX(0px);
+}
+
+.result-row:hover {
+  background-color: $selectedColor;
+  transform: translateX(5px);
+}
+
+.selected-row {
+  background-color: rgb(245, 245, 245);
+}
+
+.preview-p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 35ch;
+}
+
+.left-column {
+  margin-left: 5px;
+  width: 30%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  width: 70%;
+  text-align: right;
+  margin-right: 5px;
+  display: flex;
+}

@@ -1,0 +1,11 @@
+// babel configuration
+{
+    "presets": [
+        "@babel/env",
+        "@babel/typescript"
+    ],
+    "plugins": [
+        "@babel/transform-class-properties",
+        "@babel/transform-object-rest-spread"
+    ]
+}

@@ -1,0 +1,94 @@
+@import "./_info-icons.scss";
+@import "./_panel-icons.scss";
+
+// Icon URLS are served relatively from the static folder
+.file-url {
+   background-image: url('resources/icons/file/open-url.svg');
+}
+
+.file-local {
+   background-image: url('resources/icons/file/load-from.svg');
+}
+
+.file-cache {
+   background-image: url('resources/icons/file/open-from.svg');
+}
+
+.file-save {
+   background-image: url('resources/icons/file/save.svg');
+}
+
+.close-icon {
+   background-image: url('resources/icons/close.svg');
+}
+
+.start-icon {
+   background-image: url('resources/icons/start.svg');
+   background-size: auto;
+}
+
+.stop-icon {
+   background-image: url('resources/icons/stop.svg');
+   background-size: auto;
+}
+
+.next-page-icon {
+   background-image: url('resources/icons/page/next.svg');
+}
+
+.previous-page-icon {
+   background-image: url('resources/icons/page/previous.svg');
+}
+
+.next-page-icon {
+   background-image: url('resources/icons/page/next.svg');
+}
+
+.zoom-in-icon {
+   background-image: url('resources/icons/zoom/in.svg');
+}
+
+.zoom-out-icon {
+   background-image: url('resources/icons/zoom/out.svg');
+}
+
+.sync-icon {
+   background-image: url('resources/icons/sync.svg');
+}
+
+.overlay-icon {
+   background-image: url('resources/icons/overlay.svg');
+}
+
+.settings-icon {
+   background-image: url('resources/icons/settings.svg');
+}
+
+.raster-icon {
+   background-image: url('resources/icons/raster.svg');
+}
+
+.text-icon {
+   background-image: url('resources/icons/text.svg');
+}
+
+.raster-compare-icon {
+   background-image: url('resources/icons/raster-compare.svg');
+}
+
+.auto-icon {
+   background-image: url('resources/icons/auto.svg');
+}
+
+.reset-icon {
+   background-image: url('resources/icons/reset.svg');
+}
+
+.print-icon {
+   background-image: url('resources/icons/print.svg');
+}
+
+
+.active-icon {
+   background-color: lightblue;
+}

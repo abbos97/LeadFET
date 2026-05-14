@@ -1,0 +1,428 @@
+<meta charset="UTF-8">
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--******************************* POLYFILL FOR IE SUPPORT *******************************-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
+<script src="resources/EncoderPolyfill.js"></script>
+<!--***************************************************************************************-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+<script type="text/javascript" src="./LT/Leadtools.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Controls.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Annotations.Engine.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Annotations.Designers.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Annotations.Rendering.JavaScript.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Annotations.Automation.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Document.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Document.Viewer.js"></script>
+<script type="text/javascript" src="./LT/Leadtools.Demos.js"></script>
+<link href="./css/Dialogs.css" type="text/css" rel="stylesheet">
+<script src="bundle.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+<body>
+    <div class="app-container">
+        <div class="side-bar" id="textPanel">
+            <div class="vflex collapse-holder right-border">
+                <div class="show-tab"></div>
+            </div>
+            <div class="vflex collapsible">
+                <h1 class="hcenter">Text Compare</h1>
+                <div class="hflex" style="margin-bottom: 5px; margin-top: 10px;">
+                    <h3 class="shove-right vcenter" id="total-changes">Total Changes: 0</h3>
+                    <div title="Start Compare" tabindex="0" class="right panel-icon start-icon shove-left"
+                        id="compareTrigger"></div>
+                    <div title="Generate Report" tabindex="0" class="panel-icon file-save shove-left"
+                        id="serverCompareTrigger"></div>
+                    <div title="Toggle Sync" tabindex="0" class="panel-icon sync-icon shove-left active-icon"
+                        id="syncTriggerText"></div>
+                    <div title="Toggle Overlay" tabindex="0" class="panel-icon overlay-icon shove-left"
+                        id="overlayTriggerText">
+                    </div>
+                    <div title="Raster Compare" tabindex="0" class="panel-icon raster-icon shove-left"
+                        id="rasterTrigger">
+                    </div>
+                    <div title="Compare Settings" tabindex="0" class="panel-icon settings-icon shove-left"
+                        id="textSettingsTrigger"></div>
+                </div>
+                <div class="hflex text-settings" id="textSettings">
+                    <label class="vcenter shove-right">Deletions:</label>
+                    <div class="vcenter" id="textDeletionColor"></div>
+
+                    <label class="vcenter" style="margin-left: auto;">Insertions:</label>
+                    <div class="vcenter" style="margin-right: auto;" id="textInsertionColor"></div>
+
+                    <label class="vcenter">Selections:</label>
+                    <div class="vcenter shove-left" id="textSelectionColor"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="diff-holder" id="diff-holder"></div>
+            </div>
+        </div>
+        <div class="app-panel">
+            <div class="view-holder" id="viewHolder">
+                <div class="raster-panel">
+                    <div id="rasterOutputViewer" class="viewer"></div>
+                    <div class="doc-info-panel">
+                        <label class="vcenter shove-right" id="rasterOutputViewer-id"></label>
+                        <div class="hflex vcenter hcenter">
+                            <div title="Previous Page" tabindex="0" class="context-icon previous-page-icon"
+                                id="rasterOutputViewer-previousPage"></div>
+                            <div title="Next Page" tabindex="0" class="context-icon next-page-icon"
+                                id="rasterOutputViewer-nextPage"></div>
+                            <input type="text" class="hidden-input vcenter" id="rasterOutputViewer-currentPage">
+                            <label class="shove-right vcenter">/</label>
+                            <label class="vcenter" id="rasterOutputViewer-maxPages">0</label>
+                            <div title="Zoom Out" tabindex="0" class="context-icon zoom-out-icon"
+                                id="rasterOutputViewer-zoomOut" style="margin-left: 30px"></div>
+                            <div title="Zoom In" tabindex="0" class="context-icon zoom-in-icon"
+                                id="rasterOutputViewer-zoomIn"></div>
+                            <div class="zoom-holder">
+                                <select id="rasterOutputViewer-zoomHolder">
+                                    <option value=".1">10%</option>
+                                    <option value=".25">25%</option>
+                                    <option value=".5">50%</option>
+                                    <option value=".75">75%</option>
+                                    <option value="1">100%</option>
+                                    <option value="1.25">125%</option>
+                                    <option value="2">200%</option>
+                                    <option value="4">400%</option>
+                                    <option value="8">800%</option>
+                                    <option value="16">1600%</option>
+                                    <option value="24">2400%</option>
+                                    <option value="32">3200%</option>
+                                    <option value="64">6400%</option>
+                                    <option disabled="true">____________________</option>
+                                    <option value="Actual Size">Actual Size</option>
+                                    <option value="Fit Width">Fit Width</option>
+                                    <option value="Fit Page">Fit Page</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="vcenter shove-left hflex">
+                            <div title="Export" tabindex="0" class="context-icon file-save"
+                                id="rasterOutputViewer-export"></div>
+                            <div title="Print" tabindex="0" class="context-icon print-icon"
+                                id="rasterOutputViewer-print"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="split-panel leftPanel">
+                    <div id="splitViewer1" class="viewer"></div>
+                    <div class="doc-info-panel" style="border-right: 0;" id="splitViewer1-infoPanel">
+                        <label class="vcenter shove-right capitalize" id="splitViewer1-name"></label>
+                        <div class="hflex vcenter hcenter">
+                            <div title="Previous Page" tabindex="0" class="context-icon previous-page-icon"
+                                id="splitViewer1-previousPage"></div>
+                            <div title="Next Page" tabindex="0" class="context-icon next-page-icon"
+                                id="splitViewer1-nextPage"></div>
+                            <input type="text" class="hidden-input vcenter" id="splitViewer1-currentPage">
+                            <label class="shove-right">/</label>
+                            <label id="splitViewer1-maxPages" class="vcenter">0</label>
+                            <div title="Zoom Out" tabindex="0" class="context-icon zoom-out-icon"
+                                id="splitViewer1-zoomOut" style="margin-left: 30px"></div>
+                            <div title="Zoom In" tabindex="0" class="context-icon zoom-in-icon"
+                                id="splitViewer1-zoomIn"></div>
+                            <div class="zoom-holder">
+                                <select id="splitViewer1-zoomHolder">
+                                    <option value=".1">10%</option>
+                                    <option value=".25">25%</option>
+                                    <option value=".5">50%</option>
+                                    <option value=".75">75%</option>
+                                    <option value="1">100%</option>
+                                    <option value="1.25">125%</option>
+                                    <option value="2">200%</option>
+                                    <option value="4">400%</option>
+                                    <option value="8">800%</option>
+                                    <option value="16">1600%</option>
+                                    <option value="24">2400%</option>
+                                    <option value="32">3200%</option>
+                                    <option value="64">6400%</option>
+                                    <option disabled="true">____________________</option>
+                                    <option value="Actual Size">Actual Size</option>
+                                    <option value="Fit Width">Fit Width</option>
+                                    <option value="Fit Page">Fit Page</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="vcenter shove-left hflex">
+                            <div title="Open from url" tabindex="0" class="context-icon file-url"
+                                id="splitViewer1-openUrl"></div>
+                            <div title="Open from local" tabindex="0" class="context-icon file-local"
+                                id="splitViewer1-openLocal"></div>
+                            <div title="Open from cache" tabindex="0" class="context-icon file-cache"
+                                id="splitViewer1-openCache"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="split-panel rightPanel">
+                    <div id="splitViewer2" class="viewer"></div>
+                    <div class="doc-info-panel" style="border-left: 0;" id="splitViewer2-infoPanel">
+                        <label class="vcenter shove-right capitalize" id="splitViewer2-name"></label>
+                        <div class="hflex vcenter hcenter">
+                            <div title="Previous Page" tabindex="0" class="context-icon previous-page-icon"
+                                id="splitViewer2-previousPage"></div>
+                            <div title="Next Page" tabindex="0" class="context-icon next-page-icon"
+                                id="splitViewer2-nextPage"></div>
+                            <input type="text" class="hidden-input vcenter" id="splitViewer2-currentPage">
+                            <label class="shove-right vcenter">/</label>
+                            <label class="vcenter" id="splitViewer2-maxPages">0</label>
+                            <div title="Zoom Out" tabindex="0" class="context-icon zoom-out-icon"
+                                id="splitViewer2-zoomOut" style="margin-left: 30px"></div>
+                            <div title="Zoom In" tabindex="0" class="context-icon zoom-in-icon"
+                                id="splitViewer2-zoomIn"></div>
+                            <div class="zoom-holder">
+                                <select id="splitViewer2-zoomHolder">
+                                    <option value=".1">10%</option>
+                                    <option value=".25">25%</option>
+                                    <option value=".5">50%</option>
+                                    <option value=".75">75%</option>
+                                    <option value="1">100%</option>
+                                    <option value="1.25">125%</option>
+                                    <option value="2">200%</option>
+                                    <option value="4">400%</option>
+                                    <option value="8">800%</option>
+                                    <option value="16">1600%</option>
+                                    <option value="24">2400%</option>
+                                    <option value="32">3200%</option>
+                                    <option value="64">6400%</option>
+                                    <option disabled="true">____________________</option>
+                                    <option value="Actual Size">Actual Size</option>
+                                    <option value="Fit Width">Fit Width</option>
+                                    <option value="Fit Page">Fit Page</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="vcenter shove-left hflex">
+                            <div title="Open from url" tabindex="0" class="context-icon file-url"
+                                id="splitViewer2-openUrl"></div>
+                            <div title="Open from local" tabindex="0" class="context-icon file-local"
+                                id="splitViewer2-openLocal"></div>
+                            <div title="Open from cache" tabindex="0" class="context-icon file-cache"
+                                id="splitViewer2-openCache"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="side-bar" id="rasterPanel" style="margin-right: -23%">
+            <div class="vflex collapsible">
+                <h1 class="hcenter">Raster Compare</h1>
+                <div class="hflex" style="margin-bottom: 5px; margin-top: 10px;">
+                    <div title="Toggle Output Panel" tabindex="0" class="right panel-icon raster-icon shove-left"
+                        id="toggleOutputTrigger">
+                    </div>
+                    <div title="Raster Compare" tabindex="0" class="panel-icon auto-icon shove-left"
+                        id="rasterCompareTrigger">
+                    </div>
+                    <div title="Toggle Sync" tabindex="0" class="panel-icon sync-icon shove-left active-icon"
+                        id="syncTriggerRaster"></div>
+                    <div title="Toggle Overlay" tabindex="0" class="panel-icon overlay-icon shove-left"
+                        id="overlayTriggerRaster">
+                    </div>
+                    <div title="Text Compare" tabindex="0" class="panel-icon text-icon shove-left" id="documentTrigger">
+                    </div>
+                    <div title="Compare Settings" tabindex="0" class="panel-icon settings-icon shove-left"
+                        id="rasterSettingsTrigger"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="vflex" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                    <div class="hflex">
+                        <h4 class="vcenter">Active Viewer: <span id="activeViewer">Left</span></h4>
+                        <button class="right vcenter" style="margin-right: 10px;" id="setActiveLeft">Set Left</button>
+                        <button class="vcenter" id="setActiveRight">Set Right</button>
+                    </div>
+                    <div class="hflex">
+                        <p class="help-block">
+                            <span class="keyboard-shortcut">ctrl + shift + ←/→</span> to toggle the active viewer.
+
+                            When overlay is not enabled, the active viewer can also be changed by clicking on a panel.
+                        </p>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <div>Raster Compare: <p class="keyboard-shortcut">ctrl + enter</p>
+                        </div>
+                        <div>Toggle Output Panel: <p class="keyboard-shortcut">ctrl + s</p>
+                        </div>
+                        <div>Toggle Overlay: <p class="keyboard-shortcut">ctrl + q</p>
+                        </div>
+                    </div>
+                    <div class="hflex" style="margin-top: 30px; margin-bottom: 10px;">
+                        <h4 class="vcenter">Nudge Threshold: <input type="text" class="hidden-input" id="nudgeValue"
+                                value="10"></h4>
+                        <div class="right slider-holder">
+                            <input type="range" min="1" max="100" value="10" id="nudgeSlider">
+                        </div>
+                    </div>
+                    <div class="hflex bordered">
+                        <div style="width: 50%;" class="vflex">
+                            <div class="navigator" style="margin: auto;">
+                                <div class="navigator-v">
+                                    <div class="navigator-h" style=" margin-top: auto; margin-bottom: auto;">
+                                        <button class="navigator-button" id="nudgeLeft">
+                                            ←
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="navigator-v">
+                                    <div class="navigator-h">
+                                        <button class="navigator-button" id="nudgeUp">
+                                            ↑
+                                        </button>
+                                    </div>
+                                    <div class="navigator-h" style="margin-top: auto;">
+                                        <button class="navigator-button" id="nudgeDown">
+                                            ↓
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="navigator-v">
+                                    <div class="navigator-h" style=" margin-top: auto; margin-bottom: auto;">
+                                        <button class="navigator-button" id="nudgeRight">
+                                            →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 50%; margin-top: 10px; margin-right: 5px;" class="hflex">
+                            <div class="vflex">
+                                <p>Nudge Left:</p>
+                                <p>Nudge Up:</p>
+                                <p>Nudge Down:</p>
+                                <p>Nudge Right:</p>
+                            </div>
+                            <div class="vflex hcenter">
+                                <p class="keyboard-shortcut"> ctrl + ←</p>
+                                <p class="keyboard-shortcut"> ctrl + ↑</p>
+                                <p class="keyboard-shortcut"> ctrl + ↓</p>
+                                <p class="keyboard-shortcut"> ctrl + →</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hflex" style="margin-top: 30px; margin-bottom: 10px;">
+                        <h4 class="vcenter">Rotate Threshold: <input type="text" class="hidden-input" id="rotateValue"
+                                value="1"></h4>
+
+                        <div class="right slider-holder">
+                            <input type="range" min="1" max="90" value="1" id="rotateSlider">
+                        </div>
+                    </div>
+
+                    <div class="hflex bordered">
+                        <div class="vflex" style="margin-left:5px;">
+                            <button class="shove-up shove-down" id="clockwise">Clockwise</button>
+                            <button class="shove-up shove-down" id="counter-clockwise">Counter-Clockwise</button>
+                        </div>
+                        <div style="width: 50%; margin-right: 5px;" class="hflex right">
+                            <div class="vflex">
+                                <p class="vcenter">Clockwise:</p>
+                                <p class="vcenter">Counter-Clockwise:</p>
+                            </div>
+                            <div class="vflex right">
+                                <p class="keyboard-shortcut vcenter hcenter"> alt + →</p>
+                                <p class="keyboard-shortcut vcenter hcenter"> alt + ←</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vflex collapse-holder left-border">
+                <div class="hide-tab"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Dialog from the Document Viewer Demo -->
+    <div id="dlgLoading" class="hide-for-print dlg-container ">
+        <div class="dlg-box loading-dialog">
+            <div class="dlg-body modal-body">
+                <header>
+                    <h4 id="dlgLoading_ProcessText"></h4>
+                    <h5 id="dlgLoading_ProcessSubText" class="bottom-push-inner"></h5>
+                </header>
+                <div class="progress">
+                    <div id="dlgLoading_ProgressBar" class="progress-bar progress-bar-striped active" role="progressbar"
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <span id="dlgLoading_ProgressPercentage"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="dlgLoading_CancelDiv" class="modal-footer">
+                <button id="dlgLoading_Cancel" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="dlgRasterSettings" class="hide-for-print dlg-container">
+        <div class="dlg-box">
+            <div class="dlg-body modal-body">
+                <header>
+                    <h3>Raster Compare Settings</h3>
+                </header>
+                <div class="vflex" id="rasterSettings">
+                    <h4 class="vcenter shove-right bolded-h4">Left:</h4>
+                    <div class="hflex pad">
+                        <label class="vcenter shove-left">Background:</label>
+                        <div id="rasterSettings-leftBackground" class="vcenter" style="margin-right: auto;"></div>
+                        <label class="vcenter shove-left">Foreground:</label>
+                        <div id="rasterSettings-leftForeground" class="vcenter"></div>
+                    </div>
+                    <p class="help-block">
+                        These colors will be used when getting a colorized 1-bit version of the image that is currently
+                        in view.
+                    </p>
+                    <button id="rasterSettings-getLeftColored">Get Colorized Image</button>
+                    <h4 class="vcenter shove-right bolded-h4" style="margin-top: 20px;">Right:</h4>
+                    <div class="hflex pad">
+                        <label class="vcenter shove-left">Background:</label>
+                        <div id="rasterSettings-rightBackground" class="vcenter" style="margin-right: auto;"></div>
+                        <label class="vcenter shove-left">Foreground:</label>
+                        <div id="rasterSettings-rightForeground" class="vcenter"></div>
+                    </div>
+                    <p class="help-block">
+                        These colors will be used when getting a colorized 1-bit version of the image that is currently
+                        in view.
+                    </p>
+                    <button id="rasterSettings-getRightColored">Get Colorized Image</button>
+                    <h4 class="vcenter shove-right bolded-h4" style="margin-top: 20px;">Output Image:</h4>
+                    <div class="hflex pad">
+                        <label class="vcenter shove-left">Background:</label>
+                        <div id="rasterSettings-outputBackground" class="vcenter" style="margin-right: auto;"></div>
+                        <label class="vcenter shove-left">Match:</label>
+                        <div id="rasterSettings-outputMatch" class="vcenter"></div>
+                    </div>
+                    <div class="hflex pad">
+                        <label class="vcenter shove-left" style="margin-left: 30px;">Change:</label>
+                        <div id="rasterSettings-outputChange" class="vcenter" style="margin-right: auto;"></div>
+                        <label class="vcenter shove-left">External:</label>
+                        <div id="rasterSettings-outputExternal" class="vcenter"></div>
+                    </div>
+                    <div class="hflex pad">
+                        <label class="vcenter shove-left" style="margin-left: 24px;">Addition:</label>
+                        <div id="rasterSettings-outputAddition" class="vcenter" style="margin-right: auto;"></div>
+                        <label class="vcenter shove-left">Deletion:</label>
+                        <div id="rasterSettings-outputDeletion" class="vcenter"></div>
+                    </div>
+                    <div class="hflex" style="margin-top: 10px;">
+                        <label class="vcenter">Color Threshold: <input type="text" class="hidden-input" id="colorThresholdInput"
+                                value="30"></label>
+                        <div class="slider-holder" style="margin-left: 5px;">
+                            <input type="range" min="1" max="255" value="30" id="colorThresholdSlider">
+                        </div>
+                    </div>
+                    <p class="help-block">
+                        Color threshold is the mangnitude with which we determine whether two colors are the same.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="rasterSettings-reset" class="btn btn-default">Reset</button>
+                <button id="rasterSettings-hide" class="btn btn-default">Close</button>
+            </div>
+        </div>
+    </div>
+    <iframe style="display: none" id="printBlock" type="application/pdf">
+    </iframe>
+</body>

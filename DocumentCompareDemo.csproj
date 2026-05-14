@@ -1,0 +1,113 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup Label="Globals">
+	</PropertyGroup>
+
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <TypeScriptTarget>ES5</TypeScriptTarget>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <TypeScriptTarget>ES5</TypeScriptTarget>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+		<SpaRoot>FrontendApp\</SpaRoot>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.10" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	</ItemGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <LeadConfigPath>..\..\..\..\Bin\JS\</LeadConfigPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <LeadConfigPath>..\..\..\..\Bin\JS\</LeadConfigPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+		<!-- Don't publish the SPA source files, but do show them in the project files list -->
+		<Compile Remove="app\**" />
+		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="app\**" />
+		<EmbeddedResource Remove="app\**" />
+		<None Remove="$(SpaRoot)**" />
+		<None Remove="app\**" />
+		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="static\LT\" />
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="echo Starting pre-build events..." />
+        <!-- Define commands for Windows -->
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Annotations.Automation.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Annotations.Designers.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Annotations.Engine.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Annotations.Rendering.JavaScript.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Controls.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Document.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Document.Viewer.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.Extensions.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Color.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Core.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Effects.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Main.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <!-- Define commands for macOS/Linux -->
+        <Exec Command="mkdir -p $(ProjectDir)dts" Condition="'$(OS)' != 'Windows_NT' And !Exists('$(ProjectDir)dts')" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Annotations.Automation.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Annotations.Designers.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Annotations.Engine.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Annotations.Rendering.JavaScript.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Controls.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Document.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Document.Viewer.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.Extensions.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Color.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Core.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Effects.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(LeadConfigPath)Leadtools.ImageProcessing.Main.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+
+        <!--Handle Demolibrary files-->
+        <PropertyGroup>
+            <DemoLibraryDir Condition="Exists('$(LeadConfigPath)DemoLibraries')">$(LeadConfigPath)DemoLibraries</DemoLibraryDir>
+            <DemoLibraryDir Condition="Exists('$(LeadConfigPath)..\DemoLibraries')">$(LeadConfigPath)..\DemoLibraries</DemoLibraryDir>
+        </PropertyGroup>
+        <Exec Command="xcopy &quot;$(DemoLibraryDir)\Leadtools.Demos.js&quot; &quot;$(ProjectDir)static/LT/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="cp &quot;$(DemoLibraryDir)/Leadtools.Demos.js&quot; &quot;$(ProjectDir)static/LT/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+
+        <!-- Handle TypeScript definition files -->
+        <PropertyGroup>
+            <SourceDir Condition="Exists('$(LeadConfigPath)Leadtools.d.ts')">$(LeadConfigPath)</SourceDir>
+            <SourceDir Condition="Exists('$(LeadConfigPath)..\\dts\\Leadtools.d.ts')">$(LeadConfigPath)..\\dts\\</SourceDir>
+        </PropertyGroup>
+        <Exec Command="xcopy &quot;$(SourceDir)Leadtools.d.ts&quot; &quot;$(ProjectDir)dts/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(SourceDir)Leadtools.Controls.d.ts&quot; &quot;$(ProjectDir)dts/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(SourceDir)Leadtools.Document.d.ts&quot; &quot;$(ProjectDir)dts/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(SourceDir)Leadtools.Document.Viewer.d.ts&quot; &quot;$(ProjectDir)dts/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(SourceDir)Leadtools.Annotations.Engine.d.ts&quot; &quot;$(ProjectDir)dts/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="xcopy &quot;$(SourceDir)Leadtools.Annotations.Rendering.JavaScript.d.ts&quot; &quot;$(ProjectDir)dts/&quot; /Y /F &gt; NUL" Condition="'$(OS)' == 'Windows_NT'" />
+        <Exec Command="cp &quot;$(SourceDir)Leadtools.d.ts&quot; &quot;$(ProjectDir)dts/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(SourceDir)Leadtools.Controls.d.ts&quot; &quot;$(ProjectDir)dts/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(SourceDir)Leadtools.Document.d.ts&quot; &quot;$(ProjectDir)dts/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(SourceDir)Leadtools.Document.Viewer.d.ts&quot; &quot;$(ProjectDir)dts/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(SourceDir)Leadtools.Annotations.Engine.d.ts&quot; &quot;$(ProjectDir)dts/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="cp &quot;$(SourceDir)Leadtools.Annotations.Rendering.JavaScript.d.ts&quot; &quot;$(ProjectDir)dts/&quot;" Condition="'$(OS)' != 'Windows_NT'" />
+        <Exec Command="echo Pre-build events completed." />
+    </Target>
+
+</Project>
